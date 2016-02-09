@@ -1,5 +1,6 @@
 angular.module('todoApp', [
 	'ngRoute',
+	'ngAnimate',
 	'appRoutes',
 	'MainCtrl', 
 	'AboutCtrl',

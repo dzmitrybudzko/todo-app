@@ -1,11 +1,9 @@
 var Todo = require('./models/todo');
 
 module.exports = function(app) {
-	// api ---------------------------------------------------------------------
-	// get all todos
+	
 	app.get('/api/todos', function(req, res) {
 
-		// use mongoose to get all todos in the database
 		Todo.find(function(err, todos) {
 			if (err)
 				res.send(err)
@@ -33,13 +31,14 @@ module.exports = function(app) {
 					res.send(err)
 
 				res.json(todos);
-			});
-		});
+				});
+			}
+		);
 
 	});
 
-	// delete a todo
 	app.delete('/api/todos/:todo_id', function(req, res) {
+		
 		Todo.remove({
 			_id : req.params.todo_id
 		}, function(err, todo) {
@@ -50,7 +49,7 @@ module.exports = function(app) {
 				if (err)
 					res.send(err)
 				res.json(todos);
-			});
+			})
 		});
 	});
 
@@ -60,7 +59,7 @@ module.exports = function(app) {
 													priority : {
 														id: req.body.priority.id,
 														name: req.body.priority.name
-													},
+														},
 													done : req.body.done},
 			function(err, todo) {
 				if (err)

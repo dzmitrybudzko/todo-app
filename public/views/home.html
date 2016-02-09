@@ -1,5 +1,5 @@
-<div class="text-center" ng-controller="priorityController as prCtrl">
-	<section ng-controller="helpfulTimeController as htCtrl">
+<div class="text-center"  >
+	<section>
 
         <img src="css/orangeTODO.png" class="shadow" style="padding: 5px 50px; margin: 10px">
                
@@ -8,61 +8,61 @@
                     
             <input ng-model="formData.date" type="text" id="datePicker" size="16" placeholder="select date and time" />
             
-            <select class="select-priority" ng-model="prCtrl.dataPriority.selectedOption"
-                    ng-options="option.name for option in prCtrl.dataPriority.availableOptions track by option.id">
+            <select class="select-priority" ng-model="selectedOpt"
+                    ng-options="option.name for option in availOptions track by option.id">
             
             </select>
-            <div style="display:none" ng-bind = "formData.priority = prCtrl.dataPriority.selectedOption"></div>
-            <button class="button" ng-click="createTodo()">Add</button>
+            <div style="display:none" ng-bind = "formData.priority = selectedOpt"></div>
+            <button class="button" ng-click="createTodo();">Add</button>
         </form>
 
-        <ul class="shadow main-ul" ng-model="todos" ui-sortable>
-            <li class="slide-left" ng-repeat="task in todos track by $index"
-               ng-mouseenter="valbool=false"
-               ng-mouseleave="valbool=true">
-                
-                <div class="inline" ng-class="{viewbtn: valbool}" ng-init="valbool=true">
+            <ul class="shadow main-ul" id="mainul" ng-model="todos" ui-sortable>
+                <li class="slide-left" ng-repeat="task in todos track by $index"
+                   ng-mouseenter="valbool=false"
+                   ng-mouseleave="valbool=true">
                     
-                    <img ng-src="css/circle{{task.priority.id}}.png" 
-                         ng-click="task.priority = prCtrl.increasePriority(task.priority);updateTodo(task._id, task)" />
+                    <div class="inline" ng-class="{viewbtn: valbool}" ng-init="valbool=true">
+                        
+                        <img ng-src="css/circle{{task.priority.id}}.png" 
+                             ng-click="task.priority = decreasePriority(task.priority);updateTodo(task._id, task);" />
+                        
+                        <input type="checkbox" ng-model="task.done" ng-change="updateTodo(task._id, task);" /> 
+                        
+                        <button class="btn-x" ng-click="deleteTodo(task._id);">X</button>
+                    </div> 
+
+                    <form ng-submit="updateTodo(task._id, task);upT.stopEditing(task, $index)" class="inline" ng-controller="updateTitle as upT">
+                        <div id="labelTodo" class="done-{{task.done}} inline mult-line showtask" ng-dblclick="upT.changeTitle(task, $index)">
+                            <label> {{ task.title }} </label>
+                        </div>
+
+                        <div id="editTodo" class="inline mult-line hidetask" >
+                           <input ng-model="task.title" />
+                        </div>
+                    </form>
                     
-                    <input type="checkbox" ng-model="task.done" ng-change="alert(task.done);updateTodo(task._id, task)" /> 
                     
-                    <button class="btn-x" ng-click="deleteTodo(task._id)">X</button>
-                </div> 
+                    <label ng-if="!task.done">{{ notify(task.date, timeNow) }}</label><br>
 
-                <form ng-submit="updateTodo(task._id, task);upT.stopEditing()" class="inline" ng-controller="updateTitle as upT">
-                    <div class="done-{{task.done}} inline mult-line hidewhenedit" ng-dblclick="upT.changeTitle(task)">
-                        <label> {{ task.title }} </label>
-                    </div>
+                    <div class="inline small-line" ng-class="{viewbtn: valbool}" >
+                        <label>{{ task.date + ". Left: " + timeLeft(task.date, timeNow) }}</label>
+                    </div> 
+                   
+                </li>
+            </ul> 
 
-                    <div class="inline mult-line showwhenedit" >
-                       <input ng-model="task.title" />
-                    </div>
-                </form>
-                
-                
-                <label ng-if="!task.done">{{ htCtrl.notification(task.date) }}</label><br>
-
-                <div class="inline small-line" ng-class="{viewbtn: valbool}" >
-                    <label>{{ task.date + ". Left: " + htCtrl.timeLeft(task.date) }}</label>
-                </div> 
-               
-            </li>
-        </ul> 
-
-                <span>
-                  <label class="items-left">
-                    <ng-pluralize count="htCtrl.remainingItems()"
+            <span>
+                <label class="items-left">
+                    <ng-pluralize count="remainingItems()"
                                   when="{'0' : 'Nothing to do',
                                         'one': 'Only 1 item left',
-                                      'other': '{} of {{htCtrl.leftItems()}} items left'}">
+                                      'other': '{} of {{leftItems()}} items left'}">
                     </ng-pluralize>
-                  </label>
-                </span>
-
-                <select class="select-sorting" ng-model="prCtrl.options.m1" ng-change="prCtrl.sortTasks(prCtrl.options.m1)">
-                      <option ng-repeat="opt in prCtrl.options.opts" ng-value="opt.val">{{ opt.name}}</option>
+                </label>
+            </span>
+        
+                <select class="select-sorting" ng-model="m1" ng-change="todos = sortTasks(todos, m1)">
+                      <option ng-repeat="opt in opts" ng-value="opt.val">{{ opt.name }}</option>
                 </select>
                 
 	</section>
