@@ -26,12 +26,7 @@ module.exports = function(app) {
 			if (err)
 				res.send(err);
 
-			Todo.find(function(err, todos) {
-				if (err)
-					res.send(err)
-
-				res.json(todos);
-				});
+			res.json({message: 'todo created'});
 			}
 		);
 
@@ -45,10 +40,7 @@ module.exports = function(app) {
 			if (err)
 				res.send(err);
 
-			Todo.find(function(err, todos) {
-				if (err)
-					res.send(err)
-				res.json(todos);
+				res.json({message: 'todo deleted'});
 			})
 		});
 	});
@@ -65,11 +57,7 @@ module.exports = function(app) {
 				if (err)
 					res.send(err);
 
-			Todo.find(function(err, todos) {
-				if (err)
-					res.send(err)
-				res.json(todos);
-			});
+			res.json({message: 'todo updated'});
 		});
 	});
 
