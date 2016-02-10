@@ -42,7 +42,6 @@ module.exports = function(app) {
 
 				res.json({message: 'todo deleted'});
 			})
-		});
 	});
 
 	app.put('/api/todos/:todo_id', function(req, res) {
@@ -59,6 +58,7 @@ module.exports = function(app) {
 
 			res.json({message: 'todo updated'});
 		});
+
 	});
 
 
