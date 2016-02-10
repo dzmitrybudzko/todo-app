@@ -1,11 +1,9 @@
 myApp = angular.module('MainCtrl', [])
 	
-
 myApp.controller('MainController', ['$scope', 'Todos', '$http', 'priorityService', 'notificationService',
 	function($scope, Todos, $http, priorityService, notificationService) {
 		
 		$scope.formData = {};
-
 
         AnyTime.picker( "datePicker",
            { format: "%e %b %z %H:%i",
@@ -29,6 +27,7 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', 'priorityService
                         .success(function(data) {
                             $scope.formData = {}; 
                             $scope.getTodos();
+                            //$scope.getTodos();
                             //$scope.todos = data;
                         });
                 }
