@@ -28,15 +28,8 @@ h1 {
   font-family: cursive, Open Sans, Arial; //agent orange
 }
 
-.red-border {
+.ng-submitted input.ng-invalid {
   border: solid red 3px;
-}
-
-.gray-border {
-  border: solid 1px #ccc;
-}
-.green-border {
-  border: solid 2px green;
 }
 
 ul.main-ul{
@@ -97,7 +90,6 @@ label, h1, span {
 }
 
 input, select {
-   //height: 200%;
    font-size: 70%;
    font-family: inherit;
    font-weight: inherit;

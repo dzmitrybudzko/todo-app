@@ -3,17 +3,22 @@
 
         <img src="css/orangeTODO.png" class="shadow" style="padding: 5px 50px; margin: 10px">
                
-        <form id="form-data" ng-submit="createTodo();">
-            <input ng-model="formData.title" type="text" size="22" placeholder="what needs to be done?" />
-                    
-            <input ng-model="formData.date" type="text" id="datePicker" size="16" placeholder="select date and time" />
+        <form id="form-data" ng-submit="createTodo(form.$valid, form);" name="form" novalidate>
+            
+            <input ng-model="formData.title" type="text" size="22" name="title" required
+                placeholder="what needs to be done?" />
+
+            <input ng-model="formData.date" type="text" id="datePicker" 
+                size="16" placeholder="select date and time" required/>
             
             <select class="select-priority" ng-model="selectedOpt"
                     ng-options="option.name for option in availOptions track by option.id">
             
             </select>
             <div style="display:none" ng-bind = "formData.priority = selectedOpt"></div>
-            <input type="submit" class="button"  value="Add">
+           
+            <input type="submit" class="button"  value="Add" >
+
         </form>
 
             <ul class="shadow main-ul" id="mainul" ng-model="todos" ui-sortable>
@@ -45,7 +50,6 @@
 
                     <div class="inline small-line" ng-class="{viewbtn: valbool}" >
                         <label>{{ task.description }}</label>
-
                     </div> 
                    
                 </li>
@@ -61,9 +65,9 @@
                 </label>
             </span>
         
-                <select class="select-sorting" ng-model="m1" ng-change="todos = sortTasks(todos, m1)">
-                      <option ng-repeat="opt in opts" ng-value="opt.val">{{ opt.name }}</option>
-                </select>
+            <select class="select-sorting" ng-model="m1" ng-change="todos = sortTasks(todos, m1)">
+                <option ng-repeat="opt in opts" ng-value="opt.val">{{ opt.name }}</option>
+            </select>
                 
 	</section>
 </div>

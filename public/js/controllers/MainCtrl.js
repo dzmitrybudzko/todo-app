@@ -18,34 +18,20 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'pr
                 })
         };
 
-        $scope.createTodo = function() {
-            if ($scope.formData.title !== undefined) {
-                if ($scope.formData.date !== undefined) {
-                    if ($scope.formData.title !== "") {
-                    
-                        Todos.create($scope.formData)
-                            .success(function(data) {
-                                markInputs("gray-border", 0);
-                                markInputs("gray-border", 1);
-                                $scope.formData = {}; 
-                                $scope.getTodos();
-                            });
-                    } else {
-                        markInputs("red-border", 0)
-                    };    
-                } else {
-                    markInputs("red-border", 1)
-                }
-            } else {
-                markInputs("red-border", 0);
-            }
-           
-    };
+        $scope.createTodo = function(isValid, form) {
+            if(isValid) {
+                form.$setPristine();
+                Todos.create($scope.formData)
+                    .success(function(data) {
+                        $scope.formData = {}; 
+                        $scope.getTodos();
+                    });
+             }   
+        };
 
         $scope.deleteTodo = function(id) {
             Todos.delete(id)
                 .success(function(data) {
-                    //$scope.todos = data;
                    //console.log('todo deleted'); 
                    $scope.getTodos();
                 });
@@ -55,13 +41,11 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'pr
             Todos.update(id, task)
                 .success(function(data) {
                    //console.log('todo updated'); 
-                    //$scope.todos = data;
                     $scope.getTodos();
                 });      
         }
 
         $scope.getTodos();
-
         $scope.selectedOpt = priorityService.dataPriority.selectedOption;
         $scope.availOptions = priorityService.dataPriority.availableOptions;
         $scope.m1 = priorityService.options.m1;
@@ -97,12 +81,6 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'pr
                 return count;
             };
         };
-
-        function markInputs(classcolor, i) {
-            var elem = document.getElementById("form-data").getElementsByTagName("input");
-            //console.log(elem);
-            elem[i].className = classcolor;
-        }
 
 }]);
 
