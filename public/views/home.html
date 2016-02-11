@@ -3,7 +3,7 @@
 
         <img src="css/orangeTODO.png" class="shadow" style="padding: 5px 50px; margin: 10px">
                
-        <form>
+        <form id="form-data" ng-submit="createTodo();">
             <input ng-model="formData.title" type="text" size="22" placeholder="what needs to be done?" />
                     
             <input ng-model="formData.date" type="text" id="datePicker" size="16" placeholder="select date and time" />
@@ -13,7 +13,7 @@
             
             </select>
             <div style="display:none" ng-bind = "formData.priority = selectedOpt"></div>
-            <button class="button" ng-click="createTodo();">Add</button>
+            <input type="submit" class="button"  value="Add">
         </form>
 
             <ul class="shadow main-ul" id="mainul" ng-model="todos" ui-sortable>
@@ -41,10 +41,11 @@
                         </div>
                     </form>
                     
-                    <label ng-if="!task.done">{{ notify(task.date, timeNow) }}</label><br>
+                    <label ng-if="!task.done">{{ task.notification }}</label><br>
 
                     <div class="inline small-line" ng-class="{viewbtn: valbool}" >
-                        <label>{{ task.date + ". Left: " + timeLeft(task.date, timeNow) }}</label>
+                        <label>{{ task.description }}</label>
+
                     </div> 
                    
                 </li>

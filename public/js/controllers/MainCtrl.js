@@ -1,7 +1,7 @@
 myApp = angular.module('MainCtrl', [])
 	
-myApp.controller('MainController', ['$scope', 'Todos', '$http', 'priorityService', 'notificationService',
-	function($scope, Todos, $http, priorityService, notificationService) {
+myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'priorityService', 'notificationService',
+	function($scope, Todos, $http, $interval, priorityService, notificationService) {
 		
 		$scope.formData = {};
 
@@ -19,20 +19,28 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', 'priorityService
         };
 
         $scope.createTodo = function() {
-            //console.log($scope.formData);
-            if ($scope.formData.title !== undefined && $scope.formData.date !== undefined ) {
-                if ($scope.formData.title !== "") {
+            if ($scope.formData.title !== undefined) {
+                if ($scope.formData.date !== undefined) {
+                    if ($scope.formData.title !== "") {
                     
-                    Todos.create($scope.formData)
-                        .success(function(data) {
-                            $scope.formData = {}; 
-                            $scope.getTodos();
-                            //$scope.getTodos();
-                            //$scope.todos = data;
-                        });
+                        Todos.create($scope.formData)
+                            .success(function(data) {
+                                markInputs("gray-border", 0);
+                                markInputs("gray-border", 1);
+                                $scope.formData = {}; 
+                                $scope.getTodos();
+                            });
+                    } else {
+                        markInputs("red-border", 0)
+                    };    
+                } else {
+                    markInputs("red-border", 1)
                 }
-            } 
-        };
+            } else {
+                markInputs("red-border", 0);
+            }
+           
+    };
 
         $scope.deleteTodo = function(id) {
             Todos.delete(id)
@@ -67,18 +75,13 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', 'priorityService
             return priorityService.sortTasks(todos, m1);
         };
 
-        setInterval(function(){
+        $interval(function(){
             $scope.timeNow = Date.now();
-            $scope.apply;
+            angular.forEach($scope.todos, function(task, key) { 
+                task.description = task.date + ". Left: " + notificationService.timeLeft(task.date, $scope.timeNow);
+                task.notification =  notificationService.notification(task.date, $scope.timeNow);
+            })
         }, 1000);
-
-        $scope.notify = function(ms, timeNow) {
-            return   notificationService.notification(ms, timeNow);
-        };
-
-        $scope.timeLeft = function(ms, timeNow) {
-            return   notificationService.timeLeft(ms, timeNow);
-        };
 
         function initFunctionsDependingOnTodos() {
             
@@ -94,6 +97,12 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', 'priorityService
                 return count;
             };
         };
+
+        function markInputs(classcolor, i) {
+            var elem = document.getElementById("form-data").getElementsByTagName("input");
+            //console.log(elem);
+            elem[i].className = classcolor;
+        }
 
 }]);
 

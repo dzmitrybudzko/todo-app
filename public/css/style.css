@@ -28,6 +28,17 @@ h1 {
   font-family: cursive, Open Sans, Arial; //agent orange
 }
 
+.red-border {
+  border: solid red 3px;
+}
+
+.gray-border {
+  border: solid 1px #ccc;
+}
+.green-border {
+  border: solid 2px green;
+}
+
 ul.main-ul{
   list-style-type: none;
   width: 550px;
