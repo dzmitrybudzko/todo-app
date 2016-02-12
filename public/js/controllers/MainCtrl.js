@@ -84,34 +84,3 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'pr
 
 }]);
 
-
-myApp.controller('updateTitle', ['$scope', function($scope) {
-    upT = this;
-        
-    upT.changeTitle = function(task,id) {
-        var elem = document.getElementById("mainul").childNodes[2*id + 2];
-
-        var editTodo = elem.getElementsByTagName("div")[2];
-        editTodo.className = "inline, mult-line, showtask";
-
-        var labelTodo = elem.getElementsByTagName("div")[1];
-        labelTodo.className = "done-{{task.done}}, inline, mult-line, hidetask";
-
-        editTodo.addEventListener("keypress", function(e) {
-            if (e.keyCode === 27) 
-                upT.stopEditing(task, id);
-        })
-    };
-
-    upT.stopEditing = function(task, id) {
-        var elem = document.getElementById("mainul").childNodes[2*id + 2];
-
-        var editTodo = elem.getElementsByTagName("div")[2];
-        editTodo.className = "inline, mult-line, hidetask";
-        
-        var labelTodo = elem.getElementsByTagName("div")[1];
-        labelTodo.className = "done-{{task.done}}, inline, mult-line, showtask";            
-    }
-
-}]);
-

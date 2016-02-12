@@ -36,12 +36,13 @@
                     <button class="btn-x" ng-click="deleteTodo(task._id);">X</button>
                 </div> 
 
-                <form ng-submit="updateTodo(task._id, task);upT.stopEditing(task, $index)" class="inline" ng-controller="updateTitle as upT">
-                    <div id="labelTodo" class="done-{{task.done}} inline mult-line showtask" ng-dblclick="upT.changeTitle(task, $index)">
+                <form ng-submit="updateTodo(task._id, task);task.isEditing = false" class="inline" >
+                    <div id="labelTodo" ng-class="{'hidetask': task.isEditing, 'showtask': !task.isEditing}" 
+                    class="done-{{task.done}} inline mult-line" ng-dblclick="task.isEditing = true;">
                         <label> {{ task.title }} </label>
                     </div>
 
-                    <div id="editTodo" class="inline mult-line hidetask" >
+                    <div id="editTodo" ng-class="{'showtask': task.isEditing, 'hidetask': !task.isEditing}" class="inline mult-line" >
                         <input ng-model="task.title" />
                     </div>
                 </form>
