@@ -5,5 +5,6 @@ angular.module('todoApp', [
 	'MainCtrl', 
 	'AboutCtrl',
 	'TodoService',
+	'TodoFilters',
 	'ui.sortable'
 ]);

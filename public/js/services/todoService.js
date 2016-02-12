@@ -1,5 +1,5 @@
 
-var myApp = angular.module('TodoService', [])
+var myApp = angular.module('TodoService', ['TodoFilters'])
 	
 	myApp.factory('Todos', ['$http', function($http) {
 		
@@ -20,7 +20,7 @@ var myApp = angular.module('TodoService', [])
 	}]);
 
 
-    myApp.factory('priorityService', ['$filter', function($filter) {
+    myApp.factory('priorityService', ['$filter', 'sortingFilter', function($filter, sortingFilter) {
 
         var service = {};
         
@@ -41,7 +41,8 @@ var myApp = angular.module('TodoService', [])
 
         service.sortTasks = function(arr, field) {
             
-            arr = $filter('orderBy')(arr, field);
+            arr = sortingFilter(arr, field);
+            
             return arr;
         };
 
@@ -60,6 +61,7 @@ var myApp = angular.module('TodoService', [])
         return service;
 
     }]);
+
 
     myApp.factory('notificationService', function() {
         var service = {};
@@ -85,4 +87,4 @@ var myApp = angular.module('TodoService', [])
         }
 
         return service;
-    })
+    });

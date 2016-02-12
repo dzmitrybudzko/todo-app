@@ -1,6 +1,6 @@
 myApp = angular.module('MainCtrl', [])
 	
-myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'priorityService', 'notificationService',
+myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'priorityService', 'notificationService', 
 	function($scope, Todos, $http, $interval, priorityService, notificationService) {
 		
 		$scope.formData = {};
@@ -87,7 +87,7 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'pr
 
 myApp.controller('updateTitle', ['$scope', function($scope) {
     upT = this;
-    
+        
     upT.changeTitle = function(task,id) {
         var elem = document.getElementById("mainul").childNodes[2*id + 2];
 
@@ -96,6 +96,11 @@ myApp.controller('updateTitle', ['$scope', function($scope) {
 
         var labelTodo = elem.getElementsByTagName("div")[1];
         labelTodo.className = "done-{{task.done}}, inline, mult-line, hidetask";
+
+        editTodo.addEventListener("keypress", function(e) {
+            if (e.keyCode === 27) 
+                upT.stopEditing(task, id);
+        })
     };
 
     upT.stopEditing = function(task, id) {
@@ -109,3 +114,4 @@ myApp.controller('updateTitle', ['$scope', function($scope) {
     }
 
 }]);
+

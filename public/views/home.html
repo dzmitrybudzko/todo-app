@@ -1,24 +1,24 @@
-<div class="text-center"  >
+<div class="text-center">
 	<section>
 
-        <img src="css/orangeTODO.png" class="shadow" style="padding: 5px 50px; margin: 10px">
+        <img src="css/orangeTODO.png" class="shadow image-title">
                
-        <form id="form-data" ng-submit="createTodo(form.$valid, form);" name="form" novalidate>
+        <form ng-submit="createTodo(form.$valid, form);" name="form" novalidate>
             
-            <input ng-model="formData.title" type="text" size="22" name="title" required
+            <input ng-model="formData.title" type="text" size="23" name="title" required
                 placeholder="what needs to be done?" />
 
-            <input ng-model="formData.date" type="text" id="datePicker" 
-                size="16" placeholder="select date and time" required/>
+            <input ng-model="formData.date" type="text" id="datePicker" required
+                size="15" placeholder="select date and time" />
             
             <select class="select-priority" ng-model="selectedOpt"
                     ng-options="option.name for option in availOptions track by option.id">
-            
             </select>
-            <div style="display:none" ng-bind = "formData.priority = selectedOpt"></div>
-           
-            <input type="submit" class="button"  value="Add" >
 
+            <input type="submit" class="button" value="Add" />
+
+            <div class="hidetask" ng-bind = "formData.priority = selectedOpt"></div>
+           
         </form>
 
             <ul class="shadow main-ul" id="mainul" ng-model="todos" ui-sortable>
@@ -46,7 +46,7 @@
                         </div>
                     </form>
                     
-                    <label ng-if="!task.done">{{ task.notification }}</label><br>
+                    <label ng-if="!task.done" class="warning">{{ task.notification }}</label><br>
 
                     <div class="inline small-line" ng-class="{viewbtn: valbool}" >
                         <label>{{ task.description }}</label>

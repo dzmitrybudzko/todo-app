@@ -29,7 +29,6 @@ module.exports = function(app) {
 			res.json({message: 'todo created'});
 			}
 		);
-
 	});
 
 	app.delete('/api/todos/:todo_id', function(req, res) {
