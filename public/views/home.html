@@ -42,7 +42,7 @@
                         <label> {{ task.title }} </label>
                     </div>
 
-                    <div id="editTodo" ng-class="{'showtask': task.isEditing, 'hidetask': !task.isEditing}" class="inline mult-line" >
+                    <div id="editTodo" ng-keypress="task.isEditing = funcKeyPress($event)" ng-class="{'showtask': task.isEditing, 'hidetask': !task.isEditing}" class="inline mult-line" >
                         <input ng-model="task.title" />
                     </div>
                 </form>

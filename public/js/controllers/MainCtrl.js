@@ -82,5 +82,12 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'pr
             };
         };
 
+        $scope.funcKeyPress = function(keyEvent) {
+            
+            if (keyEvent.keyCode === 27) 
+                return false;
+            
+            return true;
+        }
 }]);
 
