@@ -1,7 +1,7 @@
 
 angular.module('TodoFilters', [])    
 
-	.filter('sorting', ['$filter', function($filter){
+    .filter('sorting', ['$filter', function($filter){
 
         return function(arr, field) {
 

@@ -1,9 +1,9 @@
 myApp = angular.module('MainCtrl', [])
 	
 myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'priorityService', 'notificationService', 
-	function($scope, Todos, $http, $interval, priorityService, notificationService) {
+    function($scope, Todos, $http, $interval, priorityService, notificationService) {
 		
-		$scope.formData = {};
+        $scope.formData = {};
 
         AnyTime.picker( "datePicker",
            { format: "%e %b %z %H:%i",
@@ -60,10 +60,10 @@ myApp.controller('MainController', ['$scope', 'Todos', '$http', '$interval', 'pr
         };
 
         $interval(function(){
-            $scope.timeNow = Date.now();
+            var timeNow = Date.now();
             angular.forEach($scope.todos, function(task, key) { 
-                task.description = task.date + ". Left: " + notificationService.timeLeft(task.date, $scope.timeNow);
-                task.notification =  notificationService.notification(task.date, $scope.timeNow);
+                task.description = task.date + ". Left: " + notificationService.timeLeft(task.date, timeNow);
+                task.notification =  notificationService.notification(task.date, timeNow);
             })
         }, 1000);
 

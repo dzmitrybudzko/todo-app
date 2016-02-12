@@ -17,7 +17,7 @@ var myApp = angular.module('TodoService', ['TodoFilters'])
                 return $http.put('/api/todos/' + id, todo);
             }
         }
-	}]);
+    }]);
 
 
     myApp.factory('priorityService', ['$filter', 'sortingFilter', function($filter, sortingFilter) {
@@ -25,10 +25,10 @@ var myApp = angular.module('TodoService', ['TodoFilters'])
         var service = {};
         
         service.dataPriority = {availableOptions: [
-                                  {id: '1', name: 'high'},
-                                  {id: '2', name: 'normal'},
-                                  {id: '3', name: 'low'}],
-                            selectedOption: {id: '2', name: 'normal'}
+                                  {id: '1', name: 'high', img: 'css/circle1.png'},
+                                  {id: '2', name: 'normal', img: 'css/circle2.png'},
+                                  {id: '3', name: 'low', img: 'css/circle3.png'}],
+                            selectedOption: {id: '2', name: 'normal', img: 'css/circle2.png'}
         };
 
         service.options = { m1: null,
