@@ -14,6 +14,10 @@ angular.module('appRoutes', [])
 			templateUrl: 'views/about.html',
 			controller: 'AboutController'
 		})
+		.when('/about1', {
+			templateUrl: 'views/about.html',
+			controller: 'AboutController'
+		})
 
 
 	$locationProvider.html5Mode(true);
